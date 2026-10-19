@@ -21,7 +21,7 @@ public sealed class JevClientTests
         });
 
         JevResponse<TestResult> response = await client.EvaluateAsync<TestResult>(
-            "The service is unavailable.");
+            "The service is unavailable.", cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(Category.Problem, response.Result.CategoryDetails?.Choice);
         Assert.Equal(0.86, response.Result.CategoryDetails?.Confidence);
@@ -62,7 +62,7 @@ public sealed class JevClientTests
         JevClient client = CreateClient(handler);
 
         JsonException exception = await Assert.ThrowsAsync<JsonException>(
-            () => client.EvaluateAsync<TestResult>("The service is unavailable."));
+            () => client.EvaluateAsync<TestResult>("The service is unavailable.", cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Contains("not valid for enum", exception.Message);
     }
@@ -74,7 +74,7 @@ public sealed class JevClientTests
         JevClient client = CreateClient(handler);
 
         JevResponse<PropertyShapesResult> response = await client.EvaluateAsync<PropertyShapesResult>(
-            "The service is unavailable.");
+            "The service is unavailable.", cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(Category.Problem, response.Result.Category);
         Assert.Equal(1.75m, response.Result.Severity);
@@ -89,7 +89,7 @@ public sealed class JevClientTests
         JevClient client = CreateClient(new StubHttpMessageHandler(ResponseJson));
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(
-            () => client.EvaluateAsync<InvalidChoiceResult>("The service is unavailable."));
+            () => client.EvaluateAsync<InvalidChoiceResult>("The service is unavailable.", cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Contains("Choice property 'Category'", exception.Message);
         Assert.Contains("Jev-Choice", exception.Message);
@@ -101,7 +101,7 @@ public sealed class JevClientTests
         JevClient client = CreateClient(new StubHttpMessageHandler(ResponseJson));
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(
-            () => client.EvaluateAsync<InvalidScoreResult>("The service is unavailable."));
+            () => client.EvaluateAsync<InvalidScoreResult>("The service is unavailable.", cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Contains("defines 1 level", exception.Message);
         Assert.Contains("Jev-Score", exception.Message);
@@ -113,7 +113,7 @@ public sealed class JevClientTests
         JevClient client = CreateClient(new StubHttpMessageHandler(ResponseJson));
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(
-            () => client.EvaluateAsync<InvalidNoulResult>("The service is unavailable."));
+            () => client.EvaluateAsync<InvalidNoulResult>("The service is unavailable.", cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Contains("custom threshold", exception.Message);
         Assert.Contains("Jev-Noul", exception.Message);
@@ -126,7 +126,7 @@ public sealed class JevClientTests
         JevClient client = CreateClient(new StubHttpMessageHandler(incompleteResponse));
 
         JsonException exception = await Assert.ThrowsAsync<JsonException>(
-            () => client.EvaluateAsync<TestResult>("The service is unavailable."));
+            () => client.EvaluateAsync<TestResult>("The service is unavailable.", cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Contains("missing required 'choice' field", exception.Message);
         Assert.Contains("Jev-Choice", exception.Message);
@@ -138,7 +138,7 @@ public sealed class JevClientTests
         JevClient client = CreateClient(new StubHttpMessageHandler(ResponseJson));
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(
-            () => client.EvaluateAsync<MissingConstructorResult>("The service is unavailable."));
+            () => client.EvaluateAsync<MissingConstructorResult>("The service is unavailable.", cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Contains("parameterless constructor", exception.Message);
         Assert.Contains("Building-the-return-object", exception.Message);

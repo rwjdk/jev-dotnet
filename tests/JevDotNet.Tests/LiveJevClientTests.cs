@@ -18,7 +18,7 @@ public sealed class LiveJevClientTests
         JevClient client = new JevClient(secrets.TypeSafeAIApiKey);
 
         JevResponse<LiveResult> response = await client.EvaluateAsync<LiveResult>(
-            "Our production website is unavailable for every customer.");
+            "Our production website is unavailable for every customer.", cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.True(response.Result.Category.HasValue);
         Assert.True(Enum.IsDefined(response.Result.Category.Value));
