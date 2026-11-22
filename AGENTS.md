@@ -1,3 +1,8 @@
+# Shared user profile (Rasmus)
+
+Read `C:\Users\rasmu\OneDrive\Codex\USER.md` for information about Rasmus and his preferences.
+You may add or update information in that file when it is general knowledge about Rasmus that is useful across projects. Keep project-specific details in this project's files, and only record facts supported by the user or reliable context.
+
 # AI Rules for JevDotNet
 
 ## Repository map
