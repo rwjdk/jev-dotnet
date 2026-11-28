@@ -4,6 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches: ['**']
+    paths-ignore:
+      - 'AGENTS.md'
+      - 'Agents.md'
+      - 'agents.md'
+      - '**/AGENTS.md'
+      - '**/Agents.md'
+      - '**/agents.md'
+      - '.codex/**'
+      - '.agents/**'
   pull_request:
     branches: [main]
 
